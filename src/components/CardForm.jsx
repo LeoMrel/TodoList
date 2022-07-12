@@ -1,17 +1,20 @@
-import React, { useState } from "react";
-import { useRef } from "react";
+import React, { useState, useRef } from "react";
 import { Link, useNavigate } from 'react-router-dom'
 import { UserAuth } from "./Context/UserContext";
-
+import { setPersistence, browserSessionPersistence } from "firebase/auth";
+import { auth } from "../firebase";
 
 const Card = ({ isSignUp }) => {
     const [isLoading, setIsLoading] = useState(false);
+    const [rememberMe, setRememberMe] = useState(false)
     const navigateTo = useNavigate();
     const {createUser, signIn} = UserAuth();
 
     const email = useRef(null);
     const password = useRef(null);
     const repeatPassword = useRef(null);
+
+    const handleRememberMe = () => rememberMe === false ? setRememberMe(true) : setRememberMe(false)
 
     const handleSignup = async e => {
         e.preventDefault();
@@ -31,8 +34,10 @@ const Card = ({ isSignUp }) => {
     const handleSignin = async e => {
         e.preventDefault();
         setIsLoading(true);
-        try {
-            await signIn(email.current.value, password.current.value);
+        if(!rememberMe) setPersistence(auth, browserSessionPersistence);
+
+        try {            
+            await signIn(email.current.value, password.current.value)
         } catch(error) {
             console.log(error)
         }
@@ -72,7 +77,7 @@ const Card = ({ isSignUp }) => {
                     <div className="flex flex-col gap-2 items-start">
                         <div className="flex items-start">
                             <div className="flex items-center h-5">
-                                <input id="remember" type="checkbox" value="" className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                                <input onClick={handleRememberMe} id="remember" type="checkbox" value="false" className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                             </div>
                             <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
                         </div>
