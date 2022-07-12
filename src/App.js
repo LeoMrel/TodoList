@@ -11,18 +11,18 @@ import Dashboard from "./components/Dashboard";
 import { AuthContextProvider } from "./components/Context/UserContext";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
+import ResetForm from "./components/ResetForm";
 
 export default function App() {
-  const [user, setUser] = useState(null);
-  
+ const [user, setUser] = useState(null);
   
   useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
           setUser(currentUser);
       });
-      return () => unsubscribe();
-  }, [])
 
+      return () => unsubscribe();
+  }, []);
 
   return (
     <div className="app">
@@ -32,6 +32,7 @@ export default function App() {
         <Routes>
             <Route path='/' element={user ? <Dashboard /> : <WelcomePage />} />
             <Route path='/signup' element={<SignUpPage />} />
+            <Route path='/reset' element={<ResetForm />} />
         </Routes>
         </Router>
     </Container>

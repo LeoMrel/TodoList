@@ -1,4 +1,12 @@
 <!DOCTYPE html>
+<script>
+  const html = document.getElementsByTagName('html');
+  const theme = localStorage.getItem('darkTheme');
+  console.log(theme)
+  if(theme !== null && Boolean(theme) === false) html.item(0).setAttribute('class', 'white');
+  else if(theme !== null && Boolean(theme) === true) html.item(0).setAttribute('class', 'dark');
+</script>
+</script>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
