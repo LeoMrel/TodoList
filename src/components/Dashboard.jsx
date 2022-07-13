@@ -5,7 +5,6 @@ import { auth } from "../firebase";
 const Dashboard = () => {
     const {logout} = UserAuth();
 
-    console.log(auth.currentUser)
     return (
         <div className="bg-white p-10 rounded-lg dark:bg-gray-900">
         <div className="text-xl text-red-600">Hello world</div>

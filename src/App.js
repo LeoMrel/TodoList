@@ -17,20 +17,18 @@ export default function App() {
  const [user, setUser] = useState(null);
  const [isDarkTheme, setIsDarkTheme] = useState(false); 
 
- console.log(localStorage.getItem('qqiud'))
-
  useEffect(() => {
   const token = localStorage.getItem('qqiud');
   if(token) {
-    setUser(true)
-  }
+    setUser(token)
+  };
 }, [])
 
  useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      localStorage.setItem('qqiud', JSON.stringify(currentUser.refreshToken))
-  });
+      currentUser && localStorage.setItem('qqiud', JSON.stringify(currentUser.refreshToken));
+});
   return () => unsubscribe();
 }, []);
 
