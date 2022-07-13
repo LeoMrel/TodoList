@@ -1,4 +1,4 @@
-import { createContext, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 import {
     createUserWithEmailAndPassword,
     signInWithEmailAndPassword,
@@ -10,6 +10,27 @@ import {auth} from '../../firebase'
 const UserContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
+    const [isDarkTheme, setIsDarkTheme] = useState(false); 
+   
+    useEffect(() => {
+     const storedPreference = eval(localStorage.getItem('prefersDarkMode'));
+     if (storedPreference) setIsDarkTheme(JSON.parse(storedPreference));
+   }, []);
+     
+   useEffect(() => {
+     const html = document.getElementsByTagName('html').item(0)
+     if (isDarkTheme) {
+       localStorage.setItem('prefersDarkMode', 'true');
+       html.classList.add('dark');
+     }
+     else {
+       localStorage.setItem('prefersDarkMode', 'false');
+       html.classList.remove('dark');
+     }
+   }, [isDarkTheme]);
+   
+    const handleTheme = () => setIsDarkTheme(!isDarkTheme);
+   
     const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
     const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
     const logout = () => {
@@ -18,7 +39,7 @@ export const AuthContextProvider = ({children}) => {
     };
 
     return(
-        <UserContext.Provider value={{createUser, signIn, logout }}>
+        <UserContext.Provider value={{createUser, signIn, logout, handleTheme }}>
             {children}
         </UserContext.Provider>
     )

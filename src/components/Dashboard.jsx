@@ -1,9 +1,16 @@
-import { UserAuth } from "./Context/UserContext"
-import { auth } from "../firebase";
+import { UserAuth } from "./Context/UserContext";
+import {doc, getDoc, onSnapshot} from 'firebase/firestore';
+import { firestore } from "../firebase";
+import { useEffect, useState } from "react";
 
 
-const Dashboard = () => {
+
+const Dashboard = ({props}) => {
+    const [todoList, setTodoList] = useState([]);
     const {logout} = UserAuth();
+    const user = props;
+
+    console.log(user.uid);
 
     return (
         <div className="bg-white p-10 rounded-lg dark:bg-gray-900">

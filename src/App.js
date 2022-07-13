@@ -9,20 +9,12 @@ import WelcomePage from "./components/WelcomePage";
 import SignUpPage from "./components/SignupPage";
 import Dashboard from "./components/Dashboard";
 import { AuthContextProvider } from "./components/Context/UserContext";
-import { auth } from "./firebase";
+import { auth, firestore } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import ResetForm from "./components/ResetForm";
 
 export default function App() {
- const [user, setUser] = useState(null);
- const [isDarkTheme, setIsDarkTheme] = useState(false); 
-
- useEffect(() => {
-  const token = localStorage.getItem('qqiud');
-  if(token) {
-    setUser(token)
-  };
-}, [])
+ const [user, setUser] = useState({});
 
  useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -32,33 +24,13 @@ export default function App() {
   return () => unsubscribe();
 }, []);
 
-
- useEffect(() => {
-  const storedPreference = eval(localStorage.getItem('prefersDarkMode'));
-  if (storedPreference) setIsDarkTheme(JSON.parse(storedPreference));
-}, []);
-  
-useEffect(() => {
-  const html = document.getElementsByTagName('html').item(0)
-  if (isDarkTheme) {
-    localStorage.setItem('prefersDarkMode', 'true');
-    html.classList.add('dark');
-  }
-  else {
-    localStorage.setItem('prefersDarkMode', 'false');
-    html.classList.remove('dark');
-  }
-}, [isDarkTheme]);
-
-  const handleTheme = () => setIsDarkTheme(!isDarkTheme);
-
   return (
     <div className="app">
     <AuthContextProvider>
-    <Container props={handleTheme}>
+    <Container>
     <Router>
         <Routes>
-            <Route path='/' element={user ? <Dashboard /> : <WelcomePage />} />
+            <Route path='/' element={user ? <Dashboard props={user} /> : <WelcomePage />} />
             <Route path='/signup' element={<SignUpPage />} />
             <Route path='/reset' element={<ResetForm />} />
         </Routes>
