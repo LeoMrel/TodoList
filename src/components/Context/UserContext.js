@@ -12,7 +12,10 @@ const UserContext = createContext();
 export const AuthContextProvider = ({children}) => {
     const createUser = (email, password) => createUserWithEmailAndPassword(auth, email, password);
     const signIn = (email, password) => signInWithEmailAndPassword(auth, email, password);
-    const logout = () => signOut(auth);
+    const logout = () => {
+        localStorage.removeItem('qqiud');
+        return signOut(auth)
+    };
 
     return(
         <UserContext.Provider value={{createUser, signIn, logout }}>

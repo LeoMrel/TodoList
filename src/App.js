@@ -17,6 +17,24 @@ export default function App() {
  const [user, setUser] = useState(null);
  const [isDarkTheme, setIsDarkTheme] = useState(false); 
 
+ console.log(localStorage.getItem('qqiud'))
+
+ useEffect(() => {
+  const token = localStorage.getItem('qqiud');
+  if(token) {
+    setUser(true)
+  }
+}, [])
+
+ useEffect(() => {
+  const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      localStorage.setItem('qqiud', JSON.stringify(currentUser.refreshToken))
+  });
+  return () => unsubscribe();
+}, []);
+
+
  useEffect(() => {
   const storedPreference = eval(localStorage.getItem('prefersDarkMode'));
   if (storedPreference) setIsDarkTheme(JSON.parse(storedPreference));
@@ -33,15 +51,6 @@ useEffect(() => {
     html.classList.remove('dark');
   }
 }, [isDarkTheme]);
-
-
-  useEffect(() => {
-      const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-          setUser(currentUser);
-      });
-
-      return () => unsubscribe();
-  }, []);
 
   const handleTheme = () => setIsDarkTheme(!isDarkTheme);
 
