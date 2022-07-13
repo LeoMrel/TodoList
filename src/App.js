@@ -15,7 +15,26 @@ import ResetForm from "./components/ResetForm";
 
 export default function App() {
  const [user, setUser] = useState(null);
+ const [isDarkTheme, setIsDarkTheme] = useState(false); 
+
+ useEffect(() => {
+  const storedPreference = eval(localStorage.getItem('prefersDarkMode'));
+  if (storedPreference) setIsDarkTheme(JSON.parse(storedPreference));
+}, []);
   
+useEffect(() => {
+  const html = document.getElementsByTagName('html').item(0)
+  if (isDarkTheme) {
+    localStorage.setItem('prefersDarkMode', 'true');
+    html.classList.add('dark');
+  }
+  else {
+    localStorage.setItem('prefersDarkMode', 'false');
+    html.classList.remove('dark');
+  }
+}, [isDarkTheme]);
+
+
   useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
           setUser(currentUser);
@@ -24,10 +43,12 @@ export default function App() {
       return () => unsubscribe();
   }, []);
 
+  const handleTheme = () => setIsDarkTheme(!isDarkTheme);
+
   return (
     <div className="app">
     <AuthContextProvider>
-    <Container>
+    <Container props={handleTheme}>
     <Router>
         <Routes>
             <Route path='/' element={user ? <Dashboard /> : <WelcomePage />} />
