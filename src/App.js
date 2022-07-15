@@ -10,16 +10,21 @@ import SignUpPage from "./components/SignupPage";
 import Dashboard from "./components/Dashboard";
 import { AuthContextProvider } from "./components/Context/UserContext";
 import { auth, firestore } from "./firebase";
-import { onAuthStateChanged } from "firebase/auth";
+import { AuthCredential, onAuthStateChanged } from "firebase/auth";
 import ResetForm from "./components/ResetForm";
 
 export default function App() {
- const [user, setUser] = useState({});
+ const [user, setUser] = useState(null);
+
+useEffect(() => {
+  const token = localStorage.getItem('qqiud');
+  if(token) setUser(JSON.parse(token))
+ }, []);
 
  useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      currentUser && localStorage.setItem('qqiud', JSON.stringify(currentUser.refreshToken));
+      currentUser && localStorage.setItem('qqiud', JSON.stringify(currentUser.uid));
 });
   return () => unsubscribe();
 }, []);
