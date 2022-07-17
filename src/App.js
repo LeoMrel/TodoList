@@ -35,7 +35,7 @@ useEffect(() => {
     <Container>
     <Router>
         <Routes>
-            <Route path='/' element={user ? <Dashboard props={user} /> : <WelcomePage />} />
+            <Route path='/' element={user ? <Dashboard user={user} /> : <WelcomePage />} />
             <Route path='/signup' element={<SignUpPage />} />
             <Route path='/reset' element={<ResetForm />} />
         </Routes>
