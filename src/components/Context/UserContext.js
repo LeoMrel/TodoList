@@ -13,8 +13,8 @@ export const AuthContextProvider = ({children}) => {
     const [isDarkTheme, setIsDarkTheme] = useState(false); 
    
     useEffect(() => {
-     const storedPreference = eval(localStorage.getItem('prefersDarkMode'));
-     if (storedPreference) setIsDarkTheme(JSON.parse(storedPreference));
+     const storedPreference = (localStorage.getItem('prefersDarkMode'));
+     if (storedPreference === 'true') setIsDarkTheme(JSON.parse(storedPreference));
    }, []);
      
    useEffect(() => {

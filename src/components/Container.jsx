@@ -16,7 +16,7 @@ const Container = ({ children }) => {
                 {auth.currentUser && <button onClick={logout} className={buttonStyles}>Logout</button>}
                 </div>
                 </div>
-                <div className="flex w-full justify-center mt-20">
+                <div className="flex w-full justify-center mt-20 place-items-center">
                 {children}
             </div>
             </div>
