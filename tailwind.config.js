@@ -6,5 +6,7 @@ module.exports = {
     extend: {},
   },
   darkMode: 'class',
-  plugins: [],
+  plugins: [
+    require('tw-elements/dist/plugin')
+  ],
 }

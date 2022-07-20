@@ -16,8 +16,6 @@ import ResetForm from "./components/ResetForm";
 export default function App() {
  const [user, setUser] = useState(null);
 
-console.log('render')
-
 useEffect(() => {
   const token = localStorage.getItem('qqiud');
   if(token) setUser(JSON.parse(token))

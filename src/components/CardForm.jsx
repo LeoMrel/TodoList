@@ -5,6 +5,8 @@ import { setPersistence, browserSessionPersistence } from "firebase/auth";
 import { auth } from "../firebase";
 import * as Styles from './Styles/CardStyles'
 import { PasswordRequirements } from "./Styles/CardStyles";
+import hide from './icons/hide.png'
+import show from './icons/show.png'
 
 const Card = ({ isSignUp }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -21,10 +23,12 @@ const Card = ({ isSignUp }) => {
     const [isValidEmail, setIsValidEmail] = useState(false);
 
     const [password, setPassword] = useState('');
+    const [seePassword, setSeePassword] = useState(false);
     const [isValidPassword, setIsValidPassword] = useState(false);
     const [displayPasswordRequirements, setDisplayPasswordRequirements] = useState(false);
 
     const [repeatPassword, setRepeatPassword] = useState('');
+    const [seeRepeatPassword, setSeeRepeatPassword] = useState(false);
     const [passwordsMatch, setPasswordsMatch] = useState(false);
 
 
@@ -34,7 +38,6 @@ const Card = ({ isSignUp }) => {
 
         if (passwordsMatch) {
             try {
-                setIsLoading(false);
                 await createUser(email, password);
                 navigateTo('/');
             } catch (error) {
@@ -85,35 +88,47 @@ const Card = ({ isSignUp }) => {
                         className={`${ Styles.inputStyles } ${ dynamicEmailStyles }`}
                         placeholder="Email"
                         required />
-                    <input
-                        onFocus={() => setDisplayPasswordRequirements(true)}
-                        onBlur={() => setDisplayPasswordRequirements(false)}
-                        onChange={(e) => {
-                            const passwordRef = e.target.value;
-                            setPassword(passwordRef);
-                            Boolean(passwordRef.match(passwordRegex)) ? setIsValidPassword(true) : setIsValidPassword(false);
-                        }}
-                        type="password"
-                        name="password"
-                        id="password"
-                        className={`${ Styles.inputStyles } ${ dynamicPasswordStyles }`} placeholder="Password"
-                        required />
+                    <div className="relative flex place-items-center">
+                        <input
+                            onFocus={() => setDisplayPasswordRequirements(true)}
+                            onChange={(e) => {
+                                const passwordRef = e.target.value;
+                                setPassword(passwordRef);
+                                Boolean(passwordRef.match(passwordRegex)) ? setIsValidPassword(true) : setIsValidPassword(false);
+                            }}
+                            type={seePassword ? 'text' : 'password'}
+                            name="password"
+                            id="password"
+                            className={`${ Styles.inputStyles } ${ dynamicPasswordStyles } z-0`} placeholder="Password"
+                            required />
+                        <div onClick={() => setSeePassword(!seePassword)}
+                            className={Styles.seePasswordStyles}>
+                            <img src={seePassword ? show : hide} alt={'show/hide password'} height='25' width='25' />
+                        </div>
+                    </div>
                     {displayPasswordRequirements && <PasswordRequirements password={password} />}
+                    <div className="relative flex place-items-center">
                     <input
                         onChange={(e) => {
                             const repeatPasswordRef = e.target.value;
                             setRepeatPassword(repeatPasswordRef);
                             repeatPasswordRef === password ? setPasswordsMatch(true) : setPasswordsMatch(false);
                         }}
-                        type="password"
+                        type={seeRepeatPassword ? 'text' : 'password'}
                         name="Repeat_password"
                         id="Repeat_password"
                         placeholder="Repeat Password"
                         className={`${ Styles.inputStyles } ${ dynamicRepeatPasswordStyles }`}
                         required />
+                        <div onClick={() => setSeeRepeatPassword(!seeRepeatPassword)}
+                            className={Styles.seePasswordStyles}>
+                            <img src={seeRepeatPassword ? show : hide} alt={'show/hide password'} height='25' width='25' />
+                        </div>
+                    
+                    </div>
                 </div>
                 <div className="flex flex-col gap-5 w-full">
-                    <button disabled={isLoading} type="submit" className={Styles.buttonStyles}>Sign up</button>
+                    <button disabled={isLoading} type="submit" className={Styles.buttonStyles}> {isLoading ? Styles.loadingIcon : 'Sign Up'} </button>
                     <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         Already have an account? <Link to="/" className="text-blue-700 hover:underline dark:text-blue-500">Try login in!</Link>
                     </div>
@@ -126,8 +141,29 @@ const Card = ({ isSignUp }) => {
             <form onSubmit={handleSignin} className="space-y-6" action="#">
                 <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to your Todo list</h5>
                 <div className="flex flex-col gap-3">
-                    <input onChange={(e) => setEmail(e.target.value)} type="email" name="email" id="email" className={Styles.inputStyles} placeholder="Email or phone number" required />
-                    <input onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" className={Styles.inputStyles} placeholder="Password" required />
+                    <input 
+                    onChange={(e) => setEmail(e.target.value)} 
+                    type="email" 
+                    name="email" 
+                    id="email" 
+                    className={Styles.inputStyles} 
+                    placeholder="Email or phone number" 
+                    required />
+                    <div className="relative flex place-items-center">
+                    <input 
+                    onChange={(e) => setPassword(e.target.value)} 
+                    type={seePassword ? 'text' : 'password'} 
+                    name="password" 
+                    id="password" 
+                    className={Styles.inputStyles} 
+                    placeholder="Password" 
+                    required />
+
+                    <div onClick={() => setSeePassword(!seePassword)}
+                            className={Styles.seePasswordStyles}>
+                            <img src={seePassword ? show : hide} alt={'show/hide password'} height='25' width='25' />
+                        </div>
+                    </div>
                 </div>
                 <div className="flex flex-col gap-5 w-full px-2">
                     <div className="flex flex-col gap-2 items-start">
@@ -139,7 +175,7 @@ const Card = ({ isSignUp }) => {
                         </div>
                         <Link to='/reset' className="text-sm text-blue-700 hover:underline dark:text-blue-500">Lost Password?</Link>
                     </div>
-                    <button disabled={isLoading} type="submit" className={Styles.buttonStyles}>Sign in to your account</button>
+                    <button disabled={isLoading} type="submit" className={Styles.buttonStyles}>{isLoading ? Styles.loadingIcon : 'Sign in to your account'}</button>
                     <div className="text-sm font-medium text-gray-700 dark:text-gray-300">
                         Not registered? <Link to="/signup" className="text-blue-700 hover:underline dark:text-blue-500">Create account</Link>
                     </div>
