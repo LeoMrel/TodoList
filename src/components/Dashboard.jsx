@@ -7,7 +7,7 @@ import { uuidv4 } from "@firebase/util";
 
 const Dashboard = ({ user }) => {
     const todoItem = useRef(null);
-    const pathRef = collection(firestore, `users/${ user.uid ? user.uid : user }/todos`)
+    const pathRef = collection(firestore, `users/${ user.uid || user }/todos`)
     const [todos] = useCollectionData(pathRef);
 
     const handleSubmit = async e => {

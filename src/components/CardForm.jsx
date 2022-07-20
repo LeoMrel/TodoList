@@ -5,8 +5,8 @@ import { setPersistence, browserSessionPersistence } from "firebase/auth";
 import { auth } from "../firebase";
 import * as Styles from './Styles/CardStyles'
 import { PasswordRequirements } from "./Styles/CardStyles";
-import hide from './icons/hide.png'
-import show from './icons/show.png'
+import hide from '../icons/hide.png'
+import show from '../icons/show.png'
 
 const Card = ({ isSignUp }) => {
     const [isLoading, setIsLoading] = useState(false);
@@ -74,7 +74,7 @@ const Card = ({ isSignUp }) => {
     const displayIfIsSignup =
         <div className={Styles.cardStyles}>
             <form onSubmit={handleSignup} className="space-y-6" action="#">
-                <h5 className={`text-xl font-medium text-gray-900 dark:text-white`}>Sign up for a free account</h5>
+                <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign up for a free account</h5>
                 <div className="flex flex-col gap-3">
                     <input
                         onChange={e => {
@@ -108,23 +108,23 @@ const Card = ({ isSignUp }) => {
                     </div>
                     {displayPasswordRequirements && <PasswordRequirements password={password} />}
                     <div className="relative flex place-items-center">
-                    <input
-                        onChange={(e) => {
-                            const repeatPasswordRef = e.target.value;
-                            setRepeatPassword(repeatPasswordRef);
-                            repeatPasswordRef === password ? setPasswordsMatch(true) : setPasswordsMatch(false);
-                        }}
-                        type={seeRepeatPassword ? 'text' : 'password'}
-                        name="Repeat_password"
-                        id="Repeat_password"
-                        placeholder="Repeat Password"
-                        className={`${ Styles.inputStyles } ${ dynamicRepeatPasswordStyles }`}
-                        required />
+                        <input
+                            onChange={(e) => {
+                                const repeatPasswordRef = e.target.value;
+                                setRepeatPassword(repeatPasswordRef);
+                                repeatPasswordRef === password ? setPasswordsMatch(true) : setPasswordsMatch(false);
+                            }}
+                            type={seeRepeatPassword ? 'text' : 'password'}
+                            name="Repeat_password"
+                            id="Repeat_password"
+                            placeholder="Repeat Password"
+                            className={`${ Styles.inputStyles } ${ dynamicRepeatPasswordStyles }`}
+                            required />
                         <div onClick={() => setSeeRepeatPassword(!seeRepeatPassword)}
                             className={Styles.seePasswordStyles}>
                             <img src={seeRepeatPassword ? show : hide} alt={'show/hide password'} height='25' width='25' />
                         </div>
-                    
+
                     </div>
                 </div>
                 <div className="flex flex-col gap-5 w-full">
@@ -141,25 +141,25 @@ const Card = ({ isSignUp }) => {
             <form onSubmit={handleSignin} className="space-y-6" action="#">
                 <h5 className="text-xl font-medium text-gray-900 dark:text-white">Sign in to your Todo list</h5>
                 <div className="flex flex-col gap-3">
-                    <input 
-                    onChange={(e) => setEmail(e.target.value)} 
-                    type="email" 
-                    name="email" 
-                    id="email" 
-                    className={Styles.inputStyles} 
-                    placeholder="Email or phone number" 
-                    required />
+                    <input
+                        onChange={(e) => setEmail(e.target.value)}
+                        type="email"
+                        name="email"
+                        id="email"
+                        className={Styles.inputStyles}
+                        placeholder="Email or phone number"
+                        required />
                     <div className="relative flex place-items-center">
-                    <input 
-                    onChange={(e) => setPassword(e.target.value)} 
-                    type={seePassword ? 'text' : 'password'} 
-                    name="password" 
-                    id="password" 
-                    className={Styles.inputStyles} 
-                    placeholder="Password" 
-                    required />
+                        <input
+                            onChange={(e) => setPassword(e.target.value)}
+                            type={seePassword ? 'text' : 'password'}
+                            name="password"
+                            id="password"
+                            className={Styles.inputStyles}
+                            placeholder="Password"
+                            required />
 
-                    <div onClick={() => setSeePassword(!seePassword)}
+                        <div onClick={() => setSeePassword(!seePassword)}
                             className={Styles.seePasswordStyles}>
                             <img src={seePassword ? show : hide} alt={'show/hide password'} height='25' width='25' />
                         </div>
@@ -169,7 +169,7 @@ const Card = ({ isSignUp }) => {
                     <div className="flex flex-col gap-2 items-start">
                         <div className="flex items-start">
                             <div className="flex items-center h-5">
-                                <input onChange={handleRememberMe} id="remember" type="checkbox" checked className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
+                                <input onChange={handleRememberMe} id="remember" type="checkbox" checked={rememberMe ? true : false} className="w-4 h-4 bg-gray-50 rounded border border-gray-300 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800" />
                             </div>
                             <label className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">Remember me</label>
                         </div>

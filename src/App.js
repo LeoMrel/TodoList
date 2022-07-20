@@ -8,10 +8,10 @@ import {
 import WelcomePage from "./components/WelcomePage";
 import SignUpPage from "./components/SignupPage";
 import Dashboard from "./components/Dashboard";
+import ResetForm from "./components/ResetForm";
 import { AuthContextProvider } from "./components/Context/UserContext";
 import { auth } from "./firebase";
 import { onAuthStateChanged } from "firebase/auth";
-import ResetForm from "./components/ResetForm";
 
 export default function App() {
  const [user, setUser] = useState(null);
