@@ -58,7 +58,7 @@ const Dashboard = ({ user }) => {
                             <div className="break-words whitespace-pre-line max-w-md w-8/12">
                                 <h5 className="dark:text-white text-xl font-bold">{text}</h5>
                             </div>
-                            <button onClick={() => handleDelete(id)} className='rounded-md w-1/4 md:w-auto dark:hover:invert transition-all duration-200'>
+                            <button onClick={() => handleDelete(id)} className='rounded-md w-1/4 md:w-auto dark:hover:invert hover:-translate-y-1 transition-all duration-200'>
                                 <img src={trash} height='30' width='30' alt='delete' />
                             </button>
                         </div>
