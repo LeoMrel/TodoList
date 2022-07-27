@@ -1,22 +1,26 @@
-import { collection, serverTimestamp, deleteDoc, doc, setDoc } from 'firebase/firestore';
+import { collection, serverTimestamp, deleteDoc, doc, setDoc, getDocs } from 'firebase/firestore';
 import { firestore } from "../firebase";
 import { useRef } from "react";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 import { buttonStyles, inputStyles } from "./Styles/CardStyles";
 import { uuidv4 } from "@firebase/util";
+import trash  from '../icons/trash.png'
 
 const Dashboard = ({ user }) => {
     const todoItem = useRef(null);
     const pathRef = collection(firestore, `users/${ user.uid || user }/todos`)
     const [todos] = useCollectionData(pathRef);
+    //const test = getDocs(collection(firestore, `users/${ user.uid }/todos1`)).then(docs => console.log(docs))
+
 
     const handleSubmit = async e => {
         e.preventDefault();
         const text = todoItem.current.value;
         const id = uuidv4();
         const input = document.getElementById('inputField');
+        const textIsNotWhiteSpace = !text.match(/^ *$/);
 
-        if (text) {
+        if (text && textIsNotWhiteSpace) {
             try {
                 input.value = "";
                 await setDoc(doc(pathRef, id), {
@@ -54,7 +58,9 @@ const Dashboard = ({ user }) => {
                             <div className="break-words whitespace-pre-line max-w-md w-8/12">
                                 <h5 className="dark:text-white text-xl font-bold">{text}</h5>
                             </div>
-                            <button onClick={() => handleDelete(id)} className={`${ buttonStyles } w-1/4 md:w-auto`}>Delete</button>
+                            <button onClick={() => handleDelete(id)} className='rounded-md w-1/4 md:w-auto dark:hover:invert transition-all duration-200'>
+                                <img src={trash} height='30' width='30' alt='delete' />
+                            </button>
                         </div>
                     )
                 })}
