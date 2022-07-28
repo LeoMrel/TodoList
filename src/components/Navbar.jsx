@@ -3,7 +3,6 @@ import { auth } from "../firebase";
 import { UserAuth } from "./Context/UserContext";
 import toggleTheme from '../icons/toggleTheme.png'
 import signOut from '../icons/signOut.png'
-//import { buttonStyles } from "./Styles/CardStyles";
 
 const Navbar = () => {
 
