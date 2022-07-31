@@ -147,7 +147,7 @@ const Card = ({ isSignUp }) => {
                         name="email"
                         id="email"
                         className={Styles.inputStyles}
-                        placeholder="Email or phone number"
+                        placeholder="Email"
                         required />
                     <div className="relative flex place-items-center">
                         <input
