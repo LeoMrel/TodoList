@@ -1,12 +1,12 @@
-import Container from "./components/Container";
+import Container from "./components/Styles/Container";
 import {React, useState, useEffect} from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from "react-router-dom";
-import WelcomePage from "./components/WelcomePage";
 import SignUpPage from "./components/SignupPage";
+import SigninPage from "./components/SinginPage";
 import Dashboard from "./components/Dashboard";
 import ResetForm from "./components/ResetForm";
 import { AuthContextProvider } from "./components/Context/UserContext";
@@ -35,7 +35,7 @@ useEffect(() => {
     <Container>
     <Router>
         <Routes>
-            <Route path='/' element={user ? <Dashboard user={user} /> : <WelcomePage />} />
+            <Route path='/' element={user ? <Dashboard user={user} /> : <SigninPage />} />
             <Route path='/signup' element={<SignUpPage />} />
             <Route path='/reset' element={<ResetForm />} />
         </Routes>

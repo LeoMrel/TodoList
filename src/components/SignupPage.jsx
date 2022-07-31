@@ -1,8 +1,5 @@
-import Card from "./CardForm"
+import SignupForm from "./Auth/SingupForm"
 
-const SignUpPage = () => {
-
-    return <Card isSignUp={true}/>
-}
+const SignUpPage = () => <SignupForm />
 
 export default SignUpPage
