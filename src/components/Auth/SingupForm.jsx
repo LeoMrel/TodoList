@@ -6,15 +6,12 @@ import * as Styles from '../Styles/CardStyles';
 import show from '../../icons/show.png';
 import hide from '../../icons/hide.png';
 import ErrorMessage from './ErrorMessage';
+import { emailRegex, passwordRegex } from './validationRegex';
 
 const SignupForm = () => {
     const [isLoading, setIsLoading] = useState(false);
     const navigateTo = useNavigate();
     const { createUser } = UserAuth();
-
-    
-    const emailRegex = /[a-z0-9]+@[a-z]+\.[a-z]{2,3}/;
-    const passwordRegex = /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}/;
 
     const [email, setEmail] = useState('');
     const [isValidEmail, setIsValidEmail] = useState(false);
