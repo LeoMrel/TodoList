@@ -18,8 +18,8 @@ const Dashboard = ({ user }) => {
     const handleSubmit = async e => {
         e.preventDefault();
         const text = todoItem.current.value;
-        const id = uuidv4();
         const input = document.getElementById('inputField');
+        const id = uuidv4();
         const textIsNotWhiteSpace = !text.match(/^ *$/);
 
         if (text && textIsNotWhiteSpace) {
@@ -72,6 +72,7 @@ const Dashboard = ({ user }) => {
                 <button
                     className='group relative flex place-content-center place-items-center hover:-translate-y-1 transition-all duration-200 dark:invert'
                     type="submit"
+                    id='addButton'
                     onClick={handleSubmit}>
                     <div className='absolute bottom-11 opacity-0 bg-gray-100 px-2 font-semibold rounded-md group-hover:h-7 group-hover:min-w-10 group-hover:opacity-95 transition-all duration-200'>
                         Add

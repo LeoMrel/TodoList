@@ -8,8 +8,18 @@ const Container = ({ children }) => {
             <div className="container relative flex flex-col place-content-center min-h-screen h-full w-full">
                 <Navbar />
                 <div className="flex w-full justify-center mt-20 place-items-center">
-                {children}
+                    {children}
+                </div>
             </div>
+            <div className="absolute text-sm font-semibold bottom-5 right-5 dark:text-white opacity-60">
+                Icons by
+                <a className="ml-1 text-blue-700 hover:underline dark:text-blue-500"
+                    href='https://icons8.com'
+                    target='_blank'
+                    rel='noreferrer'
+                >
+                    Icons8
+                </a>
             </div>
         </div>
     )
