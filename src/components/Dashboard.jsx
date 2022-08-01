@@ -12,8 +12,6 @@ const Dashboard = ({ user }) => {
     const todoItem = useRef(null);
     const pathRef = collection(firestore, `users/${ user.uid || user }/todos`)
     const [todos] = useCollectionData(pathRef);
-    //const test = getDocs(collection(firestore, `users/${ user.uid }/todos1`)).then(docs => console.log(docs))
-
 
     const handleSubmit = async e => {
         e.preventDefault();
@@ -66,7 +64,7 @@ const Dashboard = ({ user }) => {
 
 
     return (
-        <div className="bg-white rounded-lg dark:bg-gray-900 px-2 w-full max-w-xs md:max-w-none md:w-2/4">
+        <div className="bg-gray-200 shadow-2xl border border-gray-200 dark:border-0 rounded-lg dark:bg-gray-900 px-2 w-full max-w-xs md:max-w-none md:w-2/4">
             <form className="flex gap-5 w-full mt-5">
                 <input id={'inputField'} ref={todoItem} type='text' placeholder="Write a todo" className={inputStyles} />
                 <button
