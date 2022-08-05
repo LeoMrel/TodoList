@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { UserAuth } from "../Context/UserContext";
 import { emailRegex } from "./validationRegex";
 import ErrorMessage from "./ErrorMessage";
-import * as Styles from '../Styles/CardStyles';
+import * as Styles from '../Styles/Styles';
 import show from '../../icons/show.png'
 import hide from '../../icons/hide.png';
 import GoogleButton from "./GoogleAuth";

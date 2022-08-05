@@ -2,7 +2,7 @@ import { collection, serverTimestamp, deleteDoc, doc, setDoc, updateDoc } from '
 import { firestore } from "../firebase";
 import { useRef } from "react";
 import { useCollectionData } from 'react-firebase-hooks/firestore';
-import { inputStyles } from "./Styles/CardStyles";
+import { inputStyles } from "./Styles/Styles";
 import { uuidv4 } from "@firebase/util";
 import trash from '../icons/trash.png'
 import add from '../icons/add.png'

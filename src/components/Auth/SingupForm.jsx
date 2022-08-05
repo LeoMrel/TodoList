@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { UserAuth } from '../Context/UserContext';
 import { Link, useNavigate } from 'react-router-dom'
 import PasswordRequirements from './PasswordRequirements';
-import * as Styles from '../Styles/CardStyles';
+import * as Styles from '../Styles/Styles';
 import show from '../../icons/show.png';
 import hide from '../../icons/hide.png';
 import ErrorMessage from './ErrorMessage';

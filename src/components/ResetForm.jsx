@@ -1,7 +1,7 @@
-import * as Styles from './Styles/CardStyles'
 import { Link } from 'react-router-dom';
 import { useRef, useState } from 'react';
 import { UserAuth } from './Context/UserContext';
+import * as Styles from './Styles/Styles'
 import ErrorMessage from './Auth/ErrorMessage';
 
 const ResetForm = () => {
